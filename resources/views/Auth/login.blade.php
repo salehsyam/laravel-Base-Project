@@ -96,7 +96,7 @@
                 //2xx
                 console.log(response);
                 toastr.success(response.data.message);
-                window.location.href = '/admin/dashboard';
+                window.location.href = '/dashboard';
             })
             .catch(function (error) {
                 //4xx - 5xx

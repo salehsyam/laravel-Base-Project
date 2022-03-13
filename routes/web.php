@@ -33,7 +33,6 @@ Route::middleware('guest:web,admin')->group(function () {
 });
 
 Route::prefix('admin')->middleware('auth:admin')->name('admin.')->group(function(){
-    Route::view('dashboard','dashboard.index')->name('dashboard');
     Route::resource('admins', AdminController::class);
     Route::resource('users',UserController::class)->except('show');
     Route::resource('permissions',PermissionController::class)->except('show');
@@ -42,5 +41,6 @@ Route::prefix('admin')->middleware('auth:admin')->name('admin.')->group(function
 
 });
 Route::middleware('auth:web,admin')->group(function () {
+    Route::view('dashboard','dashboard.index')->name('dashboard');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

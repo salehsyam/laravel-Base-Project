@@ -11,13 +11,15 @@ class AuthController extends Controller
 {
     public function showLogin(Request $request)
     {
-        $request->request->add(['guard' => $request->guard]);
-
+        $request->merge(['guard' => $request->guard]);
         $validator = Validator($request->all(), [
             'guard' => 'required|string|in:admin,web'
         ]);
-
-            return response()->view('auth.login', ['guard' => 'admin']);
+        if (!$validator->fails()) {
+            return response()->view('auth.login', ['guard' => $request->input('guard')]);
+        } else {
+            abort(Response::HTTP_NOT_FOUND);
+        }
 
     }
 
