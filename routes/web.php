@@ -5,6 +5,8 @@ use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\PepoleController;
+use App\Http\Controllers\ServicesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,19 +30,20 @@ Route::get('/', function () {
 //});
 
 Route::middleware('guest:web,admin')->group(function () {
-     Route::get('{guard}/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::get('{guard}/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('login', [AuthController::class, 'login']);
 });
 
-Route::prefix('admin')->middleware('auth:admin')->name('admin.')->group(function(){
+Route::prefix('admin')->middleware('auth:admin')->name('admin.')->group(function () {
     Route::resource('admins', AdminController::class);
-    Route::resource('users',UserController::class)->except('show');
-    Route::resource('permissions',PermissionController::class)->except('show');
+    Route::resource('users', UserController::class)->except('show');
+    Route::resource('permissions', PermissionController::class)->except('show');
     Route::resource('roles', RoleController::class);
     Route::post('role/update-permission', [RoleController::class, 'updateRolePermission']);
-
+    Route::resource('pepoles',PepoleController::class);
+    Route::resource('services', ServicesController::class);
 });
 Route::middleware('auth:web,admin')->group(function () {
-    Route::view('dashboard','dashboard.index')->name('dashboard');
+    Route::view('dashboard', 'dashboard.index')->name('dashboard');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

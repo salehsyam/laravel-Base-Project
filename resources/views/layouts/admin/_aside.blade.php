@@ -151,7 +151,15 @@
                         </li>
                     @endcanany
                 @endcanany
-
+               <li class="nav-item">
+                    <a href="{{route('admin.pepoles.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            {{__('pepole')}}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+               </li>
 
                </ul>
         </nav>

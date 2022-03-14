@@ -26,7 +26,7 @@ class AdminController extends Controller
     {
         //
         $admins = Admin::all();
-              return response()->view('dashboard.admins.index', ['admins' => $admins]);
+        return response()->view('dashboard.admins.index', ['admins' => $admins]);
     }
     /**
      * Show the form for creating a new resource.
@@ -73,19 +73,18 @@ class AdminController extends Controller
             'role_id' => 'required|numeric|exists:roles,id',
         ])->validate();
 
-            $admin = new Admin();
-            $admin->name = $request->input('name');
-            $admin->email = $request->input('email');
-            $admin->password = Hash::make( $request->input('password'));
-            $isSaved = $admin->save();
-            if ($isSaved) {
-                $admin->assignRole(Role::findById($request->input('role_id'), 'admin'));
-            }
-            return response()->json(
-                ['message' => $isSaved ? __('Admin created successfully') : __('Create failed!')],
-                $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST,
-            );
-
+        $admin = new Admin();
+        $admin->name = $request->input('name');
+        $admin->email = $request->input('email');
+        $admin->password = Hash::make($request->input('password'));
+        $isSaved = $admin->save();
+        if ($isSaved) {
+            $admin->assignRole(Role::findById($request->input('role_id'), 'admin'));
+        }
+        return response()->json(
+            ['message' => $isSaved ? __('Admin created successfully') : __('Create failed!')],
+            $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST,
+        );
     }
 
     /**

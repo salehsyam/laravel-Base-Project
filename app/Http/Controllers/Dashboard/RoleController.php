@@ -30,7 +30,6 @@ class RoleController extends Controller
     public function create()
     {
         return response()->view('dashboard.roles.create');
-
     }
 
     /**
@@ -107,7 +106,6 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         return response()->view('dashboard.roles.edit', ['role' => $role]);
-
     }
 
     /**
@@ -140,7 +138,7 @@ class RoleController extends Controller
     {
         $isDeleted = $role->delete();
         return response()->json(
-            ['message' => $isDeleted ? __('Deleted Successfully' ): __('Delete failed')],
+            ['message' => $isDeleted ? __('Deleted Successfully') : __('Delete failed')],
             $isDeleted ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST,
         );
     }
